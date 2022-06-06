@@ -4,3 +4,7 @@ Accept: application/json
 ###
 GET http://localhost:8081/symbols/AEIS
 Accept: application/json
+
+###
+GET http://localhost:8081/symbols/filter?max=5&offset=5
+Accept: application/json
