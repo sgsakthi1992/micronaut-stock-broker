@@ -22,4 +22,9 @@ public class SymbolsController {
     public List<Symbol> getAll() {
         return new ArrayList<>(inMemoryStore.getSymbols().values());
     }
+
+    @Get("{value}")
+    public Symbol getSymbolByValue(String value) {
+        return inMemoryStore.getSymbols().get(value);
+    }
 }

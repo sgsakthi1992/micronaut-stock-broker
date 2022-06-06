@@ -2,3 +2,5 @@ GET http://localhost:8081/symbols
 Accept: application/json
 
 ###
+GET http://localhost:8081/symbols/AEIS
+Accept: application/json

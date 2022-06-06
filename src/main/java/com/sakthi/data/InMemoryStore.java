@@ -20,7 +20,12 @@ public class InMemoryStore {
 
     @PostConstruct
     public void init() {
-        IntStream.range(0, 10).forEach(i -> addNewSymbol());
+        initWith(10);
+    }
+
+    public void initWith(int numberOfEntries) {
+        symbols.clear();
+        IntStream.range(0, numberOfEntries).forEach(i -> addNewSymbol());
     }
 
     private void addNewSymbol() {
@@ -32,4 +37,5 @@ public class InMemoryStore {
     public Map<String, Symbol> getSymbols() {
         return symbols;
     }
+
 }
