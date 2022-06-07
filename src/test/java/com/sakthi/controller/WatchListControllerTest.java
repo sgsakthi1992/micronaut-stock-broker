@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import static io.micronaut.http.HttpRequest.DELETE;
 import static io.micronaut.http.HttpRequest.GET;
 import static io.micronaut.http.HttpRequest.PUT;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -78,6 +79,24 @@ class WatchListControllerTest {
         assertAll(
                 () -> assertEquals(HttpStatus.OK, response.getStatus()),
                 () -> assertEquals(symbols, inMemoryAccountStore.getWatchList(TEST_ACCOUNT_ID).symbols())
+        );
+    }
+
+    @Test
+    void testDeleteWatchListForTestAccount() {
+        inMemoryAccountStore.updateWatchList(TEST_ACCOUNT_ID, new WatchList(
+                Stream.of("AAPL", "GOOGL", "MSFT")
+                        .map(Symbol::new)
+                        .toList()
+        ));
+
+        var request = DELETE("/");
+
+        var response = client.toBlocking().exchange(request);
+
+        assertAll(
+                () -> assertEquals(HttpStatus.NO_CONTENT, response.getStatus()),
+                () -> assertTrue(inMemoryAccountStore.getWatchList(TEST_ACCOUNT_ID).symbols().isEmpty())
         );
     }
 }

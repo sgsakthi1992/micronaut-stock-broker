@@ -10,7 +10,7 @@ GET http://localhost:8081/symbols/filter?max=5&offset=5
 Accept: application/json
 
 ###
-PUT http://localhost:8081//account/watchlist
+PUT http://localhost:8081/account/watchlist
 Content-Type: application/json
 
 {
@@ -27,3 +27,6 @@ Content-Type: application/json
 ###
 GET http://localhost:8081/account/watchlist
 Accept: application/json
+
+###
+DELETE http://localhost:8081/account/watchlist
