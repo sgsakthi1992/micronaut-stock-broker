@@ -2,6 +2,7 @@ package com.sakthi.controller;
 
 import com.sakthi.data.InMemoryAccountStore;
 import com.sakthi.model.WatchList;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
@@ -33,8 +34,8 @@ public record WatchListController(InMemoryAccountStore store) {
     }
 
     @Delete(produces = MediaType.APPLICATION_JSON)
-    @Status(value = HttpStatus.NO_CONTENT)
-    public void delete() {
+    public HttpResponse<Void> delete() {
         store.deleteWatchList(ACCOUNT_ID);
+        return HttpResponse.noContent();
     }
 }
