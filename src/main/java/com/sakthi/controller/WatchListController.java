@@ -3,15 +3,12 @@ package com.sakthi.controller;
 import com.sakthi.data.InMemoryAccountStore;
 import com.sakthi.model.WatchList;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Put;
-import io.micronaut.http.annotation.Status;
 
 import java.util.UUID;
 

@@ -9,7 +9,6 @@ import io.micronaut.http.annotation.QueryValue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller("/symbols")
 public class SymbolsController {
