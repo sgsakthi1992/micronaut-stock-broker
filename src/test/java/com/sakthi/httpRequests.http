@@ -1,0 +1,29 @@
+GET http://localhost:8081/symbols
+Accept: application/json
+
+###
+GET http://localhost:8081/symbols/AEIS
+Accept: application/json
+
+###
+GET http://localhost:8081/symbols/filter?max=5&offset=5
+Accept: application/json
+
+###
+PUT http://localhost:8081//account/watchlist
+Content-Type: application/json
+
+{
+  "symbols": [
+    {
+      "value": "AAPL"
+    },
+    {
+      "value": "MSFT"
+    }
+  ]
+}
+
+###
+GET http://localhost:8081/account/watchlist
+Accept: application/json
