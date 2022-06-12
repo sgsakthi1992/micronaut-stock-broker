@@ -30,3 +30,46 @@ Accept: application/json
 
 ###
 DELETE http://localhost:8081/account/watchlist
+
+###
+POST http://localhost:8081/account/wallets/deposit
+Content-Type: application/json
+
+{
+  "accountId": "f4245629-83df-4ed8-90d9-7401045b5921",
+  "walletId": "c5b45629-83df-4ed8-90d9-7401045b5921",
+  "symbol": {
+    "value": "EUR"
+  },
+  "amount": 1000
+}
+
+### Bad request
+POST http://localhost:8081/account/wallets/deposit
+Content-Type: application/json
+
+{
+  "accountId": "f4245629-83df-4ed8-90d9-7401045b5921",
+  "walletId": "c5b45629-83df-4ed8-90d9-7401045b5921",
+  "symbol": {
+    "value": "HUF"
+  },
+  "amount": 1000
+}
+
+###
+POST http://localhost:8081/account/wallets/withdraw
+Content-Type: application/json
+
+{
+  "account_id": "f4245629-83df-4ed8-90d9-7401045b5921",
+  "wallet_id": "c5b45629-83df-4ed8-90d9-7401045b5921",
+  "symbol": {
+    "value": "EUR"
+  },
+  "amount": 1000
+}
+
+###
+GET http://localhost:8081/account/wallets
+Content-Type: application/json
