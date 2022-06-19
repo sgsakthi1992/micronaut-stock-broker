@@ -62,8 +62,8 @@ POST http://localhost:8081/account/wallets/withdraw
 Content-Type: application/json
 
 {
-  "account_id": "f4245629-83df-4ed8-90d9-7401045b5921",
-  "wallet_id": "c5b45629-83df-4ed8-90d9-7401045b5921",
+  "accountId": "f4245629-83df-4ed8-90d9-7401045b5921",
+  "walletId": "c5b45629-83df-4ed8-90d9-7401045b5921",
   "symbol": {
     "value": "EUR"
   },
@@ -73,3 +73,16 @@ Content-Type: application/json
 ###
 GET http://localhost:8081/account/wallets
 Content-Type: application/json
+
+###
+POST http://localhost:8081/account/wallets/withdraw
+Content-Type: application/json
+
+{
+  "accountId": "f4245629-83df-4ed8-90d9-7401045b5921",
+  "walletId": "c5b45629-83df-4ed8-90d9-7401045b5921",
+  "symbol": {
+    "value": "HUF"
+  },
+  "amount": -50
+}

@@ -1,8 +1,10 @@
 package com.sakthi.data;
 
+import com.sakthi.error.InsufficientBalanceException;
 import com.sakthi.model.DepositFiatMoney;
 import com.sakthi.model.Wallet;
 import com.sakthi.model.WatchList;
+import com.sakthi.model.WithdrawFiatMoney;
 import jakarta.inject.Singleton;
 
 import java.math.BigDecimal;
@@ -44,6 +46,17 @@ public class InMemoryAccountStore {
         var oldWallet = Optional.ofNullable(wallets.get(deposit.walletId()))
                 .orElse(new Wallet(ACCOUNT_ID, deposit.walletId(), deposit.symbol(), BigDecimal.ZERO, BigDecimal.ZERO));
         var newWallet = oldWallet.addAvailable(deposit.amount());
+        wallets.put(newWallet.walletId(), newWallet);
+        walletsPerAccount.put(newWallet.accountId(), wallets);
+        return newWallet;
+    }
+
+    public Wallet withdrawFromWallet(WithdrawFiatMoney withdraw) {
+        var wallets = Optional.ofNullable(walletsPerAccount.get(withdraw.accountId()))
+                .orElseThrow(() -> new RuntimeException("Invalid account id: " + withdraw.accountId()));
+        var oldWallet = Optional.ofNullable(wallets.get(withdraw.walletId()))
+                .orElseThrow(() -> new RuntimeException("Invalid wallet id: " + withdraw.walletId()));
+        var newWallet = oldWallet.reduceAvailable(withdraw.amount());
         wallets.put(newWallet.walletId(), newWallet);
         walletsPerAccount.put(newWallet.accountId(), wallets);
         return newWallet;

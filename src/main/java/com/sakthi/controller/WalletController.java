@@ -3,6 +3,7 @@ package com.sakthi.controller;
 import com.sakthi.api.RestApiResponse;
 import com.sakthi.data.InMemoryAccountStore;
 import com.sakthi.error.CustomError;
+import com.sakthi.error.FiatCurrencyNotSupportedException;
 import com.sakthi.model.DepositFiatMoney;
 import com.sakthi.model.Wallet;
 import com.sakthi.model.WithdrawFiatMoney;
@@ -59,8 +60,15 @@ public record WalletController(InMemoryAccountStore store) {
             consumes = MediaType.APPLICATION_JSON,
             produces = MediaType.APPLICATION_JSON
     )
-    public void withdrawFiatMoney(@Body WithdrawFiatMoney withdraw) {
+    public HttpResponse<Wallet> withdrawFiatMoney(@Body WithdrawFiatMoney withdraw) {
         // Option 2: Custom Error Processing
+        if (!SUPPORTED_FIAT_CURRENCIES.contains(withdraw.symbol().value())) {
+            throw new FiatCurrencyNotSupportedException(String.format("Only %s are supported", SUPPORTED_FIAT_CURRENCIES));
+        }
+
+        var wallet = store.withdrawFromWallet(withdraw);
+        LOG.debug("Withdraw from wallet: {}", wallet);
+        return HttpResponse.ok().body(wallet);
     }
 
 }
